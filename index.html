@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- Import the webpage's javascript file -->
+  </head>
+  <body>
+    
+    <div>
+      <input type="text" placeholder ="First name ..." id="nameInput">
+      <br/>
+      <input type="text" placeholder ="Surname ..." id="surnameInput">
+      <br />
+      <br />
+      <input type="text" placeholder ="Age ..." id="ageInput">
+      <br />
+      <button type="button" onclick="saveData()">Save Data</button>
+    </div>
+  </body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/8.4.0/firebase.js"></script>
+<script>
+   // !!!!Copy your Firebase database configuration information here 
+  const firebaseConfig = {
+  apiKey: "AIzaSyDNCA5-0KVk0TciPfqWEhQghc_rgtVlfww",
+  authDomain: "firstdatabase-72caa.firebaseapp.com",
+  databaseURL: "https://firstdatabase-72caa-default-rtdb.firebaseio.com",
+  projectId: "firstdatabase-72caa",
+  storageBucket: "firstdatabase-72caa.appspot.com",
+  messagingSenderId: "577343047308",
+  appId: "1:577343047308:web:8cba7f906f83a4bd4e9da9",
+  measurementId: "G-V7TKJLDH2D"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+function saveData(){
+  var name;
+  var age;
+  var surname;
+  name = document.getElementById("nameInput").value;
+  age = document.getElementById("ageInput").value;
+  surname = document.getElementById("surnameInput").value;
+  //alert(name + " "+ age);
+
+  // code to save the data to Firebase GOES HERE!
+  // myDB stores the Database connection details
+  var myDB = firebase.database().ref();
+  var addRecord = myDB.child("contacts").push(); // contacts is the node location
+  record = {
+    "Name": name,
+    "Surname" : surname,
+    "Age": age
+  };
+  // insert the record into the "contacts" node, using the .set() function with the record as an argument
+  addRecord.set(record);
+}
+
+</script>
